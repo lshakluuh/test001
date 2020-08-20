@@ -26,24 +26,40 @@ public class BatchJobConfig {
 	}
 	
 	@Autowired
-	private Test01 scrapTasklet;
+	private Test01 scrapTasklet01;
+	@Autowired
+	private Test02 scrapTasklet02;
 	
 	@Bean
 	public PlatformTransactionManager transactionManager() {
 		return new ResourcelessTransactionManager();
 	}
 	
-	@Bean(name = "scrapJob")
-	public Job scrapJob() {
-		return jobBuilderFactory.get("scrapJob")
-			       .start(scrapTasklet())
+	@Bean(name = "scrapJob01")
+	public Job scrapJob01() {
+		return jobBuilderFactory.get("scrapJob01")
+			       .start(scrapTasklet01())
+			       .build();
+	}
+	
+	@Bean(name = "scrapJob02")
+	public Job scrapJob02() {
+		return jobBuilderFactory.get("scrapJob02")
+			       .start(scrapTasklet02())
 			       .build();
 	}
 	
 	@Bean
-	public Step scrapTasklet() {
-		return stepBuilderFactory.get("scrapTasklet")
-			       .tasklet(scrapTasklet)
+	public Step scrapTasklet01() {
+		return stepBuilderFactory.get("scrapTasklet01")
+			       .tasklet(scrapTasklet01)
+			       .build();
+	}
+	
+	@Bean
+	public Step scrapTasklet02() {
+		return stepBuilderFactory.get("scrapTasklet02")
+			       .tasklet(scrapTasklet02)
 			       .build();
 	}
 	
